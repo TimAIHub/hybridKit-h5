@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>持仓 · HybridKit</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="model.js" defer></script>
+  <script src="adapter.js" defer></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" id="back" aria-label="关闭持仓页"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4-8 8 8 8"/></svg></button>
+      <h1>持仓</h1>
+      <button class="icon-button" id="support" aria-label="帮助与客服"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-3a8 8 0 0 1 16 0v3M4 11H2v7h4v-7Zm16 0h2v7h-4v-7ZM20 18c0 3-3 3-6 3"/></svg></button>
+    </header>
+    <main>
+      <div class="brand-row"><h2>HybridKit 证券</h2><span class="demo-badge">演示账户</span></div>
+      <section class="card assets" aria-labelledby="native-login-heading">
+        <h2 id="native-login-heading" class="sr-only">账户总览与原生登录</h2>
+        <div class="asset-caption"><span>总资产（元）</span><button id="visibility" class="eye-button" aria-label="隐藏资产金额" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></button><button id="asset-help" class="question" aria-label="总资产说明">?</button></div>
+        <button id="native-login" class="asset-total">请登录 <span class="chevron">›</span></button>
+        <div id="account-session" hidden><strong id="total-amount" class="asset-total">--</strong><div class="account-line"><span id="account-name">演示账户</span><button id="logout" class="text-button">退出演示</button></div></div>
+        <p id="native-login-result" class="login-status" role="status" aria-live="polite">登录后查看模拟资产与持仓</p>
+        <div class="asset-group"><h3>股票</h3><div class="metrics"><div><span>持有市值</span><strong data-amount="stockValue">--</strong></div><div><span>今日盈亏</span><strong data-amount="stockToday" class="up">--</strong></div><div><span>持仓盈亏</span><strong data-amount="stockProfit" class="up">--</strong></div></div></div>
+        <div class="asset-group"><h3>基金</h3><div class="metrics"><div><span>持有资产</span><strong data-amount="fundValue">--</strong></div><div><span>今日收益</span><strong data-amount="fundToday" class="down">--</strong></div><div><span>持仓收益</span><strong data-amount="fundProfit" class="up">--</strong></div></div></div>
+      </section>
+      <button class="promo" data-service="repo" aria-label="查看通用回购演示"><span class="promo-copy"><strong>买通用回购，资金灵活使用</strong><span>多种期限可选 <em>立即查看 ›</em></span><small>模拟产品 · 不构成投资建议</small></span><svg class="money-bag" viewBox="0 0 100 110" aria-hidden="true"><defs><linearGradient id="bag" x2="1" y2="1"><stop stop-color="#ffe7b2"/><stop offset="1" stop-color="#efa45c"/></linearGradient></defs><ellipse cx="50" cy="98" rx="36" ry="7" fill="#e9af7b" opacity=".3"/><path d="m33 12 17 7 18-7-9 23c27 20 33 57 9 60H33C9 92 15 55 41 35Z" fill="url(#bag)"/><path d="M37 34h25" stroke="#d98940" stroke-width="5" stroke-linecap="round"/><path d="m38 52 12 16 12-16M50 68v19M38 69h24M38 78h24" fill="none" stroke="#fff5dc" stroke-width="5"/></svg></button>
+      <section class="card shortcuts" aria-label="交易与账户服务">
+        <div class="trade-grid">
+          <button data-service="buy"><span class="round-icon orange">买</span><span>买入</span></button>
+          <button data-service="sell"><span class="round-icon blue">卖</span><span>卖出</span></button>
+          <button data-service="cancel"><span class="round-icon amber">撤</span><span>撤单</span></button>
+          <button data-service="records"><span class="round-icon blue">查</span><span>交易记录</span></button>
+          <button data-service="transfer"><span class="round-icon orange">转</span><span>转入转出</span></button>
+        </div>
+        <div class="utility-grid">
+          <button data-service="ipo"><span class="line-icon">✧</span><span>一键打新</span></button>
+          <button data-service="repo"><span class="line-icon">↗</span><span>通用回购</span></button>
+          <button data-service="cash"><span class="line-icon">⇄</span><span>资金明细</span></button>
+          <button data-service="more"><span class="line-icon blocks">▦</span><span>更多服务</span></button>
+        </div>
+      </section>
+      <section id="positions" class="card positions" hidden aria-label="模拟持仓列表">
+        <div class="section-heading"><div class="tabs" role="tablist" aria-label="持仓类型"><button id="stock-tab" role="tab" aria-selected="true" aria-controls="position-list" data-tab="stock">股票持仓</button><button id="fund-tab" role="tab" aria-selected="false" aria-controls="position-list" data-tab="fund">基金持仓</button></div><span class="subtle">模拟数据</span></div>
+        <div id="position-list" role="tabpanel" aria-labelledby="stock-tab"></div>
+      </section>
+      <footer><button id="about" class="footer-link">本页面为 HybridKit 交互演示 <span class="question">i</span></button><p>所有资产、行情和交易均为模拟数据</p><span id="status" class="runtime-status">正在连接演示服务</span></footer>
+    </main>
+  </div>
+  <div id="modal" class="modal-backdrop" hidden><section class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"><button id="modal-close" class="sheet-close" aria-label="关闭弹窗">×</button><span class="sheet-symbol">HK</span><h2 id="modal-title"></h2><p id="modal-description"></p><button id="modal-confirm" class="primary"></button></section></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

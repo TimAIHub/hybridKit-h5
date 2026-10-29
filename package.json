@@ -1,0 +1,10 @@
+{
+  "name": "hybridkit-h5-demo",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Dependency-free HybridKit holdings demo",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs && python3 scripts/verify.py",
+    "build": "python3 scripts/build.py"
+  }
+}

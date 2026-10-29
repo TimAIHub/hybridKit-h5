@@ -29,34 +29,36 @@
     {
       "archive": "main.zip",
       "files": {
-        "index.html": "eae562e8ebf48044f1641b2c2a36115c439a28e69353fdf2fc21c3d4bd50c40f",
-        "index.js": "1374afe8daf179e328418f7f6126a4613b846bce0de62560f555c96115aecd55",
-        "service.js": "5266e536990966bb3d57fe18fde26afd4a5b74689c75f6b3e9a270871685a2aa",
-        "style.css": "9c732f1524528fc09751753836ca3cb2db3b68593e6dacec3b6d19c622456ff0"
+        "adapter.js": "c7cb69144da727d72f3fd8e04d4d4cb9eb5dd6a5ff9bb453596fd50bb19067df",
+        "index.html": "df9df0bea8a99a05b1debfb3d0ff86952cc3f80e6fa0f2fbedb8b10e84084b74",
+        "index.js": "252b6a7878724c54517ef49f4d299c647551d3ed00171457e4b38db1e4bbc560",
+        "model.js": "b0555cd5bd984cb2c56e67ca6a687cc81c1d5e128f993f8501f08563d0630740",
+        "service.js": "5e28e6819cc0ff7282473c765a73a5d0d6b7ff460e50f4f6cb1ff2a59b81e309",
+        "style.css": "2becc7ee73b24d5bfdbce0cbafc3143851b15a27fe7db96e456b7694a415e926"
       },
       "name": "main",
-      "sha256": "e6cf3b4c5b4c78bd442cbce01d283dffc2400322e29a72e2ec2a248ccbf92f44"
+      "sha256": "ecc02ab8f817deb1855dc5c0630c79b55f711879cc8f5ea58a106fa363c61051"
     },
     {
       "archive": "details.zip",
       "files": {
-        "details.html": "d276e3847827ad02975fb8cd6582e195222c317015388db0e38e02234e161954",
-        "details.js": "d1c76cdd428f524362820ded517ec39fee257a8a5728e99f280e0b8206001eec"
+        "details.html": "45764d6eef7b5c8a9e6488b3ef7a885d5165bb4e57f698812da8d1d37360b115",
+        "details.js": "172497a724bb9d542113b73d5999b701ee5fa2a53fb115663b169e5e8815f03d"
       },
       "name": "details",
-      "sha256": "a1d21944c17058d1ca4cc4ef7b5791eb7f2c8e3026f640fc5b653e6a8173de78"
+      "sha256": "cff7c8408b4b6176504e829ea865c784cbf85d879cc3d83dcf946ade67c962f6"
     }
   ],
   "pages": {
     "details": {
       "package": "details",
       "path": "details.html",
-      "title": "按需分包"
+      "title": "服务演示"
     },
     "home": {
       "package": "main",
       "path": "index.html",
-      "title": "HybridKit Demo"
+      "title": "持仓"
     }
   },
   "permissions": [
@@ -64,5 +66,5 @@
   ],
   "schemaVersion": 1,
   "service": "service.js",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }
