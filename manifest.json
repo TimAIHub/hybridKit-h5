@@ -1,0 +1,68 @@
+{
+  "allowedAPIs": [
+    "runtime.info",
+    "host.echo",
+    "host.presentLogin",
+    "event.publish",
+    "page.navigate",
+    "page.back",
+    "page.relaunch",
+    "page.title",
+    "app.close",
+    "storage.get",
+    "storage.set",
+    "storage.remove",
+    "storage.clear",
+    "permission.status",
+    "permission.request",
+    "permission.revoke",
+    "network.request",
+    "network.download",
+    "network.upload",
+    "file.read",
+    "file.remove"
+  ],
+  "appID": "hybrid.demo",
+  "entryPage": "home",
+  "networkHosts": [],
+  "packages": [
+    {
+      "archive": "main.zip",
+      "files": {
+        "index.html": "eae562e8ebf48044f1641b2c2a36115c439a28e69353fdf2fc21c3d4bd50c40f",
+        "index.js": "1374afe8daf179e328418f7f6126a4613b846bce0de62560f555c96115aecd55",
+        "service.js": "5266e536990966bb3d57fe18fde26afd4a5b74689c75f6b3e9a270871685a2aa",
+        "style.css": "9c732f1524528fc09751753836ca3cb2db3b68593e6dacec3b6d19c622456ff0"
+      },
+      "name": "main",
+      "sha256": "e6cf3b4c5b4c78bd442cbce01d283dffc2400322e29a72e2ec2a248ccbf92f44"
+    },
+    {
+      "archive": "details.zip",
+      "files": {
+        "details.html": "d276e3847827ad02975fb8cd6582e195222c317015388db0e38e02234e161954",
+        "details.js": "d1c76cdd428f524362820ded517ec39fee257a8a5728e99f280e0b8206001eec"
+      },
+      "name": "details",
+      "sha256": "a1d21944c17058d1ca4cc4ef7b5791eb7f2c8e3026f640fc5b653e6a8173de78"
+    }
+  ],
+  "pages": {
+    "details": {
+      "package": "details",
+      "path": "details.html",
+      "title": "按需分包"
+    },
+    "home": {
+      "package": "main",
+      "path": "index.html",
+      "title": "HybridKit Demo"
+    }
+  },
+  "permissions": [
+    "profile"
+  ],
+  "schemaVersion": 1,
+  "service": "service.js",
+  "version": "1.0.0"
+}
