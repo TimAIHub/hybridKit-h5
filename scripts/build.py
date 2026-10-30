@@ -3,14 +3,16 @@
 from pathlib import Path
 import hashlib
 import json
+import shutil
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sha = lambda data: hashlib.sha256(data).hexdigest()
 
 
-def build():
+def build(*, publish_versioned=True):
     packages = []
+    archives = {}
     for name in ("main", "details"):
         directory = ROOT / "src" / name
         files = {p.relative_to(directory).as_posix(): p.read_bytes()
@@ -24,6 +26,7 @@ def build():
                 output.writestr(item, data)
         packages.append(dict(name=name, archive=archive.name, sha256=sha(archive.read_bytes()),
                              files={path: sha(data) for path, data in files.items()}))
+        archives[name] = archive
     manifest = dict(schemaVersion=1, appID="hybrid.demo", version="2.0.0", entryPage="home",
                     service="service.js", pages={
                         "home": dict(path="index.html", package="main", title="持仓"),
@@ -35,6 +38,17 @@ def build():
                         "permission.status", "permission.request", "permission.revoke",
                         "network.request", "network.download", "network.upload", "file.read", "file.remove"],
                     networkHosts=[], permissions=["profile"])
+    if publish_versioned:
+        main = next(package for package in packages if package["name"] == "main")
+        release = ROOT / manifest["appID"] / main["sha256"]
+        release.mkdir(parents=True, exist_ok=True)
+        for package in packages:
+            destination = release / package["archive"]
+            source = archives[package["name"]]
+            if destination.exists() and destination.read_bytes() != source.read_bytes():
+                raise ValueError(f"Release already exists with different bytes: {destination}")
+            shutil.copyfile(source, destination)
+        print("Release directory:", release.relative_to(ROOT))
     raw = json.dumps(manifest, ensure_ascii=False, sort_keys=True, indent=2).encode()
     (ROOT / "manifest.json").write_bytes(raw)
     (ROOT / "manifest.sha256").write_text(sha(raw) + "\n")

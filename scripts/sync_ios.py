@@ -25,5 +25,6 @@ builder = builder.replace('ROOT / "src" / name', 'ROOT / "Examples/AppletSource"
 builder = builder.replace('archive = ROOT / (name + ".zip")', 'archive = ROOT / "Examples/HybridKitDemo/Applet" / (name + ".zip")')
 builder = builder.replace('(ROOT / "manifest.json")', '(ROOT / "Examples/HybridKitDemo/Applet/manifest.json")')
 builder = builder.replace('(ROOT / "manifest.sha256")', '(ROOT / "Examples/HybridKitDemo/Applet/manifest.sha256")')
+builder = builder.replace('    build()\n', '    build(publish_versioned=False)\n')
 (sdk / "Scripts/build_packages.py").write_text(builder)
 print("Synced frontend source, packages and standalone builder to", sdk)

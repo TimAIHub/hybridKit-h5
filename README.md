@@ -36,6 +36,7 @@ npm test       # Node 内置测试 + 包完整性/静态依赖校验
 | `scripts/sync_ios.py` | 显式替换现有 iOS Demo 的前端源码与资源 |
 | `tests/demo.test.cjs` | 金额掩码、订单边界、Bridge 调用/失败路径测试 |
 | `manifest.json`、`manifest.sha256`、`main.zip`、`details.zip` | 发布给 HybridKit 的资源文件 |
+| `hybrid.demo/<main.zip SHA256>/main.zip`、`details.zip` | 远程下载使用的版本产物目录 |
 
 ## 替换 iOS Demo
 
@@ -59,7 +60,16 @@ Demo 的「远程资源」区域：
 045f0f0d499b757a7fcbfdd1c0bb2d82f9d641b39749abad26f2450bd7f0cc3a
 ```
 
-主包在预加载/启动时获取，`details.zip` 在首次进入服务页面时下载。已同步到 iOS Demo 的摘要随 App Bundle 分发；更新远程资源后需要同步可信摘要并重新构建 App，或在 Demo 中手动填入可信的新摘要。
+主包在预加载/启动时获取，`details.zip` 在首次进入服务页面时下载。iOS Demo 的远程摘要随宿主代码预置；更新远程 manifest 后需要同步可信摘要并重新构建 App，或在 Demo 中手动填入可信的新摘要。离线包可以单独重建，不应覆盖远程发布摘要。
+
+ZIP 下载路径统一为 `<manifest 所在目录>/<appID>/<main 包的 sha256>/<package.archive>`。主包和分包共用主包摘要对应的版本目录，分包下载后按自身摘要校验。当前路径：
+
+```text
+https://raw.githubusercontent.com/TimAIHub/hybridKit-h5/main/hybrid.demo/ecc02ab8f817deb1855dc5c0630c79b55f711879cc8f5ea58a106fa363c61051/main.zip
+https://raw.githubusercontent.com/TimAIHub/hybridKit-h5/main/hybrid.demo/ecc02ab8f817deb1855dc5c0630c79b55f711879cc8f5ea58a106fa363c61051/details.zip
+```
+
+`npm run build` 自动生成版本目录，再更新根目录 manifest；`npm test` 校验版本目录、根目录离线 ZIP 和 manifest 摘要一致。发布时提交完整版本目录及入口 manifest，保留已有版本目录。相同目录不允许覆盖不同内容；只修改分包时，也需更新主包中的版本标记等内容以产生新的主包 SHA256。根目录 ZIP 保留给离线同步使用，`sync_ios.py` 生成的 SDK 打包脚本只生成离线包。
 
 ```swift
 let source = HKResourceSource.remote(
